@@ -20,7 +20,7 @@ class GuestResource extends Resource
 {
     protected static ?string $model = Guest::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::UserPlus;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserPlus;
 
     protected static ?string $recordTitleAttribute = 'Guest';
 

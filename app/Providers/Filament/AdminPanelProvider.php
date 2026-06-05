@@ -34,8 +34,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('4.5rem')
             ->login()
             ->colors([
-                'primary' => Color::hex('#E9E7FF'),
-                // 'primary' => Color::Amber,
+                // 'primary' => Color::hex('#E9E7FF'),
+                'primary' => Color::Orange,
             ])
             ->sidebarCollapsibleOnDesktop()
             ->sidebarWidth('14rem')
