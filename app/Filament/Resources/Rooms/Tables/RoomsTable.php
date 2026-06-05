@@ -24,7 +24,7 @@ class RoomsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('total_inventory')
                     ->numeric()

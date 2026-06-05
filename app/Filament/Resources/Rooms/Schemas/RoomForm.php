@@ -33,8 +33,8 @@ class RoomForm
                     ->numeric()
                     ->default(1),
                 TextInput::make('price')
-                    ->required()
                     ->rupees()
+                    ->required()
                     ->numeric(),
                 TextInput::make('total_inventory')
                     ->required()

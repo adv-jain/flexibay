@@ -40,12 +40,12 @@ class BookingForm
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (Get $get, Set $set, $state) {
                         $roomPrice = floatval($state ?? 0);
-                        $tax = round($roomPrice * 0.05, 2);
+                        $tax = round($roomPrice * 0.18, 2);
                         $total = round($roomPrice + $tax, 2);
                         $set('tax_amount', $tax);
                         $set('total_amount', $total);
                     }),
-                TextInput::make('tax_amount')->label('Tax (5%)')
+                TextInput::make('tax_amount')->label('Tax (18%)')
                     ->required()
                     ->numeric()
                     ->default(0.0)
