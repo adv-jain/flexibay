@@ -11,12 +11,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'role', 'password'])]
+#[Fillable(['name', 'email', 'role', 'password', 'parent_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasRoles, HasFactory, Notifiable {
+        HasRoles::assignRole as traitAssignRole;
+    }
+
+    public function assignRole(...$roles)
+    {
+        // 1. Execute Spatie's default pivot table relationship save
+        $result = $this->traitAssignRole(...$roles);
+
+        // 2. Automatically sync the primary role name back to your user text column
+        $this->forceFill([
+            'role' => $this->getRoleNames()->first() ?? 'staff'
+        ])->save();
+
+        return $result;
+    }
+
+    // A manager can have many staff members
+    public function staff()
+    {
+        return $this->hasMany(User::class, 'parent_id');
+    }
+
+    // A staff member belongs to a creator/manager
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
 
 
     /**
@@ -32,4 +59,3 @@ class User extends Authenticatable
         ];
     }
 }
-

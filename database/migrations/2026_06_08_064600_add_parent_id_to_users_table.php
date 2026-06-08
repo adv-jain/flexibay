@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('staff');
+            // Adds parent_id, places it after the role column, and allows null values (for Admins/Managers)
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->after('role')
+                ->constrained('users')
+                ->nullOnDelete();
         });
     }
 
@@ -22,7 +27,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign(['parent_id']);
+            $table->dropColumn('parent_id');
         });
     }
 };

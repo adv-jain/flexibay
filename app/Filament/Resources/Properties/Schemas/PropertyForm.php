@@ -6,6 +6,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Hidden;
+use Illuminate\Support\Facades\Auth;
 use Filament\Schemas\Schema;
 
 class PropertyForm
@@ -14,6 +16,9 @@ class PropertyForm
     {
         return $schema
             ->components([
+                Hidden::make('user_id')
+                    ->default(Auth::id())
+                    ->required(),
                 Toggle::make('is_available')
                     ->required(),
                 TextInput::make('title')

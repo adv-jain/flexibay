@@ -14,13 +14,9 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
 
-            // Guest Relation
-            $table->foreignId('guest_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
             // Booking Details
             $table->string('booking_reference')->unique();
+            $table->string('booking_platform')->nullable();
 
             $table->string('room_number');
 

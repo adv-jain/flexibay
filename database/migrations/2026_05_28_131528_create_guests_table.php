@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('nationality')->nullable();
+
+            $table->string('photo')->nullable();
 
             // Contact Information
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('alternate_phone')->nullable();
 
             $table->text('address')->nullable();
             $table->string('city')->nullable();

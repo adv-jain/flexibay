@@ -15,6 +15,8 @@ class PropertyInfolist
             ->components([
                 IconEntry::make('is_available')
                     ->boolean(),
+                TextEntry::make('id')
+                    ->label('Property ID'),
                 TextEntry::make('title'),
                 TextEntry::make('description')
                     ->placeholder('-')

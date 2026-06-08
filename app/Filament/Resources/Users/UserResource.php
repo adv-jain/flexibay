@@ -15,6 +15,9 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserResource extends Resource
 {
@@ -44,6 +47,26 @@ class UserResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = Auth::user();
+
+        // 1. Admins see absolutely everything
+        if ($user->hasRole('admin')) {
+            return $query;
+        }
+
+        // 2. Managers only see users where they are the creator (parent_id)
+        if ($user->hasRole('manager')) {
+            return $query->where('parent_id', $user->id)
+                ->where('role', 'staff');
+        }
+
+        // 3. Staff see nothing at all
+        return $query->whereKey(null);
     }
 
     public static function getPages(): array
