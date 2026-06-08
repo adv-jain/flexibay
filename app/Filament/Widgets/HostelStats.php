@@ -6,6 +6,8 @@ use App\Models\Booking;
 use App\Models\Guest;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\DB;
+
 
 class HostelStats extends BaseWidget
 {
@@ -19,12 +21,12 @@ class HostelStats extends BaseWidget
 
             Stat::make(
                 'Today Check-Ins',
-                Booking::whereDate('check_in_date', today())->count()
+                Booking::whereDate('check_in_date', '=', DB::raw('CURDATE()'))->count()
             ),
 
             Stat::make(
                 'Today Check-Outs',
-                Booking::whereDate('check_out_date', today())->count()
+                Booking::whereDate('check_out_date', '=', DB::raw('CURDATE()'))->count()
             ),
         ];
     }

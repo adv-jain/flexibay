@@ -11,6 +11,7 @@ class Booking extends Model
         'guest_id',
         'booking_reference',
         'room_number',
+        'room_id',
         'check_in_date',
         'check_out_date',
         'adults',

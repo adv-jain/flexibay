@@ -29,16 +29,19 @@ class RoomForm
                 ->required(),
 
             TextInput::make('capacity')
+                ->label('Capacity (Occupancy)') // FIXED: More descriptive label for capacity field
                 ->required()
                 ->numeric()
                 ->default(1),
 
             TextInput::make('price')
+                ->label('Price Per Night') // FIXED: More descriptive label for price field
                 ->prefix('₹') // FIXED: Standard native prefix replacement for custom currency method
                 ->required()
                 ->numeric(),
 
             TextInput::make('total_inventory')
+                ->label('Total Inventory') // FIXED: More descriptive label for inventory field
                 ->required()
                 ->numeric()
                 ->default(1),

@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Booking;
+use App\Observers\BookingObserver;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Booking::observe(BookingObserver::class);
         // Explicitly register the policies
         Gate::policy(Property::class, PropertyPolicy::class);
         Gate::policy(Room::class, RoomPolicy::class);
